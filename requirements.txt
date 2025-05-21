@@ -1,0 +1,12 @@
+numpy==1.26.4
+pillow==10.4.0
+packaging==23.2
+markupsafe==2.1.5
+langchain
+langchain-community
+langchain-huggingface
+faiss-cpu
+sentence-transformers
+streamlit
+langchain-ollama
+ollama
