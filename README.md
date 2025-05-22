@@ -114,9 +114,5 @@ medical_chatbot/
 For any questions, feel free to reach out via GitHub or linkedin.
 *account linkedin: https://www.linkedin.com/in/rjeb-amir-0866bb250/
 
-```
-
----
 
 
-```
