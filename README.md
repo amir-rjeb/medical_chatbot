@@ -5,7 +5,7 @@
 ````markdown
 # 🩺 Medical Chatbot using LLM, RAG & Agents
 
-This project is a **medical chatbot** developed by **Amir Rjeb** and **Atma Ayadi**, using modern AI techniques such as:
+This project is a **medical chatbot**, using modern AI techniques such as:
 
 - **LLM** (Large Language Model)
 - **RAG** (Retrieval-Augmented Generation)
