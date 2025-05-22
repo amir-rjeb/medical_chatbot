@@ -107,18 +107,12 @@ medical_chatbot/
 * What are the common symptoms of high blood pressure?
 * How is asthma diagnosed in adults?
 
----
 
-## 👥 Authors
-
-* Amir Rjeb
-* Atma Ayadi
-
----
 
 ## 📬 Contact
 
-For any questions, feel free to reach out via GitHub or email.
+For any questions, feel free to reach out via GitHub or linkedin.
+*account linkedin: https://www.linkedin.com/in/rjeb-amir-0866bb250/
 
 ```
 
