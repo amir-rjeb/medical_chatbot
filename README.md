@@ -1,72 +1,128 @@
-Here is the **English version** of your project description, along with a list of required `pip` packages and instructions to run the Ollama interface:
+
 
 ---
 
-### 🧠 **Project Description – Medical AI Chatbot**
+````markdown
+# 🩺 Medical Chatbot using LLM, RAG & Agents
 
-This project is an **intelligent medical chatbot** built using **open-source NLP models** and a **local document knowledge base** indexed with FAISS.
+This project is a **medical chatbot** developed by **Amir Rjeb** and **Atma Ayadi**, using modern AI techniques such as:
 
-#### 🔍 How it Works:
+- **LLM** (Large Language Model)
+- **RAG** (Retrieval-Augmented Generation)
+- **LangChain Agents**
+- **FAISS vector store**
 
-* At its core, the system uses a **local large language model (LLM)** served through **Ollama** (`llama3`), eliminating dependency on cloud-based services such as OpenAI.
-* It leverages a **vector database (FAISS)** populated with embedded medical documents (e.g., PDFs) to support semantic search and Retrieval-Augmented Generation (RAG).
-* Embeddings are generated using `all-MiniLM-L6-v2` from Hugging Face.
-* When a user submits a medical question:
-
-  1. Relevant content is retrieved from the vector store using FAISS.
-  2. A structured prompt is created with that context.
-  3. The local LLM generates an accurate and context-aware medical answer.
-
-#### ✅ Goals:
-
-* Provide **reliable, context-based medical answers** using trusted sources without relying on internet or PubMed.
-* Ensure **data privacy** by keeping all processes fully local.
-* Support **medical inquiry automation** for use cases such as patient education, clinical reference, or decision support.
+The chatbot can answer medical questions by retrieving information from **locally embedded medical documents**. If no relevant answer is found locally, it can optionally consult **PubMed** (can be disabled).
 
 ---
 
-### 📦 Required Python Packages
+## 🚀 Features
 
-Before running the project, install the following dependencies using pip:
+- 💬 Natural language interaction with a medical chatbot
+- 🧠 Local knowledge base powered by **FAISS** & **HuggingFace embeddings**
+- 🔍 Optional integration with **PubMed** for external article lookup
+- 🤖 Powered by **Ollama LLM** (local LLM runtime)
+- 🖥️ Simple web interface built with **Streamlit**
+- 🎨 Custom background and design with HTML & CSS
 
+---
+
+## 🛠️ Tech Stack
+
+- **Python 3.11+**
+- **Streamlit** for UI
+- **LangChain** for chaining and agent logic
+- **FAISS** for vector storage
+- **Ollama** for local LLM inference (supports models like `llama3`)
+- **HuggingFace Transformers** for embeddings
+- **HTML & CSS** for custom interface design
+
+---
+
+## 📦 Requirements
+
+Make sure you install the following Python libraries (with version numbers tested):
+
+```bash
+pip install streamlit==1.32.2
+pip install langchain==0.1.16
+pip install langchain-community==0.0.36
+pip install langchain-ollama==0.0.6
+pip install langchain-huggingface==0.0.5
+pip install faiss-cpu==1.7.4
+pip install requests==2.31.0
+````
+
+You also need to install **Ollama**:
+
+* Install from [https://ollama.com](https://ollama.com)
+* Run it locally with your model (e.g., `llama3`):
+
+  ```bash
+  ollama run llama3
+  ```
+
+---
+
+## 📁 Project Structure
+
+```bash
+medical_chatbot/
+├── scripts/
+│   └── app.py                # Main Streamlit app
+├── faiss_index/              # Local vectorstore (generated)
+├── static/
+│   ├── index.html            # Custom HTML interface
+│   └── style.css             # Custom styles
+├── README.md                 # You're here!
 ```
-pip numpy==1.26.4
- pip pillow==10.4.0
- pip packaging==23.2
-pip markupsafe==2.1.5
-pip langchain
-pip langchain-community
-pip langchain-huggingface
-pip faiss-cpu
-pip sentence-transformers
-streamlit
-pip langchain-ollama
-ollama
-```
-
-> ⚠️ Make sure your Python environment (e.g. virtualenv or conda) is activated.
 
 ---
 
-### 🛠️ Running the Ollama Model
+## ✅ How to Run
 
-1. **Install Ollama** from the official website:
-   [https://ollama.com](https://ollama.com)
+1. Start **Ollama** in a terminal:
 
-2. **Start the Ollama service** (from terminal or command prompt):
-
-   ```
-   ollama serve
-   ```
-
-3. **Download the LLM (e.g., llama3):**
-
-   ```
+   ```bash
    ollama run llama3
    ```
 
-> Once running, the model will be accessible via `http://localhost:11434`.
+2. Start the chatbot UI:
+
+   ```bash
+   streamlit run scripts/app.py
+   ```
+
+3. Open your browser at:
+
+   ```
+   http://localhost:8501
+   ```
 
 ---
 
-Would you like me to prepare a `requirements.txt` file or a `README.md` to include with the project?
+## 👨‍⚕️ Example Questions
+
+* What are the recommended treatments for type 2 diabetes?
+* What are the common symptoms of high blood pressure?
+* How is asthma diagnosed in adults?
+
+---
+
+## 👥 Authors
+
+* Amir Rjeb
+* Atma Ayadi
+
+---
+
+## 📬 Contact
+
+For any questions, feel free to reach out via GitHub or email.
+
+```
+
+---
+
+
+```
