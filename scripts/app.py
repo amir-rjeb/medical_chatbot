@@ -8,9 +8,9 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 from langchain.agents import initialize_agent, Tool
 from langchain.agents.agent_types import AgentType
-from typing import List, Dict
+from langchain.tools import tool
 from dataclasses import dataclass
-from langchain.tools import tool  # Add this import
+from typing import List
 
 # Configuration
 FAISS_INDEX_PATH = os.path.join(os.path.dirname(__file__), '../faiss_index')
@@ -30,7 +30,7 @@ class PubMedArticle:
     authors: List[str] = None
     abstract: str = ""
 
-# Outil PubMed personnalisé
+# PubMed Tool
 @tool
 def search_pubmed_tool(query: str, max_results: int = 3) -> str:
     """Recherche des articles médicaux sur PubMed. Retourne les titres, dates et DOI."""
@@ -87,7 +87,7 @@ def search_pubmed_tool(query: str, max_results: int = 3) -> str:
     
     return "\n".join(articles) if articles else "Aucun article trouvé sur PubMed."
 
-# Load vector store
+# Load vectorstore and embeddings
 @st.cache_resource
 def load_store():
     embeddings = HuggingFaceEmbeddings(
@@ -100,7 +100,7 @@ def load_store():
 
 embeddings, vector_store = load_store()
 
-# VectorstoreTool
+# FAISS search tool for the agent
 def faiss_search_tool(query: str) -> str:
     retriever = vector_store.as_retriever(search_kwargs={"k": 3})
     docs = retriever.get_relevant_documents(query)
@@ -149,13 +149,13 @@ agent = initialize_agent(
     handle_parsing_errors=True
 )
 
-# Interface utilisateur
+# User interface
 query = st.text_input("Enter your medical question:")
 
 if st.button("Get Answer") and query:
     with st.spinner("The agent is thinking..."):
         try:
-            # Recherche dans la base locale
+            # First try: FAISS RetrievalQA
             retriever = vector_store.as_retriever(search_kwargs={"k": 5})
             qa = RetrievalQA.from_chain_type(
                 llm=llm,
@@ -164,29 +164,26 @@ if st.button("Get Answer") and query:
                 chain_type_kwargs={"prompt": PROMPT},
             )
             res = qa.invoke({"query": query})
+            answer = res["result"].strip().lower()
             
-            # Affichage des résultats
+            if "not found" in answer or len(answer) < 20:
+                raise ValueError("Insufficient answer from FAISS")
+
+            # Show FAISS-based answer
             st.subheader("Answer:")
             st.markdown(res["result"])
-            
-            # Sources locales
+
             with st.expander("Local Sources"):
                 for i, doc in enumerate(res["source_documents"], 1):
                     fn = doc.metadata.get("source", "Unknown source")
                     st.markdown(f"**{i}. {fn}**")
                     st.caption(doc.page_content[:200] + "...")
-            
-            # Si réponse insuffisante, proposer PubMed
-            if "not found" in res["result"].lower() or len(res["result"].strip()) < 10:
-                st.info("No precise answer found in local database. Searching PubMed...")
-                pubmed_results = search_pubmed_tool(query)
-                st.markdown(pubmed_results)
-                
+
         except Exception as e:
-            st.error(f"An error occurred: {str(e)}")
-            st.info("Trying alternative approach with agent...")
+            st.info("Local data didn't give a precise answer. Using external tools via the agent...")
             try:
-                response = agent.run(query)
-                st.markdown(response)
+                agent_answer = agent.run(query)
+                st.subheader("Answer (via Agent):")
+                st.markdown(agent_answer)
             except Exception as agent_error:
-                st.error(f"Agent error: {str(agent_error)}")
+                st.error(f"Agent failed: {str(agent_error)}")

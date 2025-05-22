@@ -77,7 +77,7 @@ def search_pubmed(query: str, max_results: int = 3) -> str:
     
     return "\n".join(articles) if articles else "Aucun article trouvé sur PubMed."
 
-# Outils supplémentaires
+
 def get_tools():
     """Retourne tous les outils configurés"""
     

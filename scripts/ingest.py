@@ -35,9 +35,9 @@ splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
 chunks = splitter.split_documents(all_docs)
 print(f"Split into {len(chunks)} chunks.")
 
-# Ingest into FAISS
+#  FAISS
 vectorstore = FAISS.from_documents(chunks, embeddings)
 
-# Save FAISS index
+# Save 
 vectorstore.save_local(FAISS_INDEX_PATH)
 print("Ingestion complete.")
