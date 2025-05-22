@@ -1,9 +1,11 @@
-# Ignorer tous les fichiers PDF
+# Environnements virtuels
+env/
+.venv/
+
+# Données lourdes
+*.pyd
+*.lib
+*.dll
+*.exe
+*.sqlite3
 *.pdf
-
-# Autres exemples (optionnels) :
-# Ignorer les PDF dans un dossier spécifique (ex: "downloads/")
-downloads/*.pdf
-
-# Ignorer les fichiers temporaires (optionnel)
-*.tmp
