@@ -1,11 +1,43 @@
-# Environnements virtuels
+# === ENVIRONNEMENTS VIRTUELS ===
 env/
 .venv/
+venv/
+ENV/
+env.bak/
+*.pyc
+__pycache__/
 
-# Données lourdes
+# === FICHIERS DE CONFIGURATION LOCAUX ===
+*.env
+*.log
+*.sqlite3
+
+# === FICHIERS DE DÉPENDANCES BINAIRES ===
 *.pyd
-*.lib
 *.dll
 *.exe
-*.sqlite3
+*.so
+*.lib
+*.a
+*.dylib
+
+# === PDFs, BDD, fichiers utilisateurs ===
 *.pdf
+*.docx
+*.xlsx
+*.db
+*.sqlite
+
+# === SYSTÈME / ÉDITEURS ===
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.iml
+
+# === FICHIERS GÉNÉRÉS PAR L'IA OU OUTILS ===
+chroma_db/
+data/pdfs/
+
+# === JUPYTER NOTEBOOK OUTPUTS ===
+.ipynb_checkpoints
