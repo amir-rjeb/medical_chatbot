@@ -69,12 +69,18 @@ You also need to install **Ollama**:
 ```bash
 medical_chatbot/
 ├── scripts/
-│   └── app.py                # Main Streamlit app
-├── faiss_index/              # Local vectorstore (generated)
+│   ├── app.py                # Main Streamlit app
+│   └── ingest.py             # Script d'indexation des PDF
+├── pubmed.py                 # Outils externes (PubMed, Wikipedia, etc.)
+├── faiss_index/              # Local vectorstore (généré par ingest.py)
+├── data/
+│   └── pdfs/                 # Tes fichiers PDF médicaux
 ├── static/
-│   ├── index.html            # Custom HTML interface
-│   └── style.css             # Custom styles
-├── README.md                 # You're here!
+│   ├── index.html            # Custom HTML interface (optionnel)
+│   └── style.css             # Custom styles (optionnel)
+├── requirements.txt          # Dépendances Python du projet
+├── .gitignore                # Fichiers à ignorer par git
+├── README.md                 # Documentation du projet
 ```
 
 ---
